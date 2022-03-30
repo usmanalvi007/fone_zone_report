@@ -12,6 +12,7 @@
     'depends': ['sale'],
     'data': [
         'reports/sale_quotation_report.xml',
+        'reports/account_move_report.xml',
     ],
     'demo': [],
     'qweb': [],

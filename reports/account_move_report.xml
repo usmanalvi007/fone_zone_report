@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <report id="custom_sale_quotation_report"
-            model="sale.order"
+    <report id="custom_account_move_report"
+            model="account.move"
             string="Customer Invoice"
             report_type="qweb-pdf"
-            name="fone_zone_report.sale_quotation_custom_report"
-            file="fone_zone_report.sale_quotation_custom_report"/>
+            name="fone_zone_report.custom_invoice_report"
+            file="fone_zone_report.custom_invoice_report"/>
 
-    <template id="sale_quotation_custom_report">
+    <template id="custom_invoice_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.basic_layout">
@@ -34,6 +33,9 @@
                                 padding-left: 5px;
                                 text-align: center;
                                 }
+                                .body_row{
+                                text-align: center;
+                                }
                                 .header_table th, .header_table td{
                                 border: 1px solid black;
                                 }
@@ -50,10 +52,8 @@
                                 }
                                 .header_row{
                                 background-color:#43ace3;
-                                text-align:center;color:white
-                                }
-                                .body_row{
-                                text-align: center;
+                                text-align:center;
+                                color:white;
                                 }
                                 .content_table{
                                 width: 100%;
@@ -111,7 +111,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <t t-esc="doc.date_order" t-options='{"widget": "date"}'/>
+                                                    <t t-esc="doc.invoice_date" t-options='{"widget": "date"}'/>
                                                 </td>
                                                 <td>
                                                     <t t-esc="doc.partner_id.name"/>
@@ -169,7 +169,7 @@
                                 <tbody>
                                     <t t-set="i" t-value="1"/>
                                     <t t-set="total_discount" t-value="0"/>
-                                    <t t-foreach="doc.order_line" t-as="line">
+                                    <t t-foreach="doc.invoice_line_ids" t-as="line">
 
                                         <t t-set="discount" t-value="line.price_unit-line.price_subtotal"/>
                                         <t t-set="total_discount" t-value="total_discount+discount"/>
@@ -186,14 +186,14 @@
                                                 <t t-esc="line.product_id.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="line.product_uom_qty"/>
+                                                <t t-esc="line.quantity"/>
                                             </td>
                                             <td>
                                                 <t t-esc="line.price_unit"/>
                                             </td>
                                             <td></td>
                                             <td>
-                                                <t t-esc="'%.2f'% line.price_tax"/>
+                                                <t t-esc="'%.2f'%(line.price_total-line.price_subtotal)"/>
                                             </td>
                                             <td>
                                                 <t t-esc="line.price_total"/>
@@ -237,13 +237,13 @@
                                     <td></td>
                                     <th>Discount<br/>التخفيض
                                     </th>
-                                    <td><t t-esc="total_discount"/></td>
+                                    <td><t t-esc="total_discount"/> </td>
                                 </tr>
                                 <tr>
                                     <!--<th>Branch Name<br/>فرع</th>-->
                                     <th>Branch Name<br/>فــــــــرع
                                     </th>
-                                    <td><t t-esc="doc.company_id.name"/></td>
+                                    <td> <t t-esc="doc.company_id.name"/></td>
                                     <th>Total Net<br/>إجمالي الصافي
                                     </th>
                                     <td>
