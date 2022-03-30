@@ -58,7 +58,6 @@
                                 .content_table{
                                 width: 100%;
                                 border: 1px solid black;
-                                text-align:center;
                                 }
                                 .content_table th{
                                 border: 1px solid black;
