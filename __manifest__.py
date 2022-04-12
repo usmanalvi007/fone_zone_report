@@ -11,6 +11,7 @@
     'images': [],
     'depends': ['sale'],
     'data': [
+        'data/ir_cron_data.xml',
         'reports/sale_quotation_report.xml',
         'reports/account_move_report.xml',
     ],

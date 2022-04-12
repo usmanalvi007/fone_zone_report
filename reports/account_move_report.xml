@@ -179,7 +179,7 @@
                                                 <t t-set="i" t-value="i+1"/>
                                             </td>
                                             <td>
-                                                <t t-esc="line.product_id.default_code"/>
+                                                <t t-esc="line.product_id.serial_number"/>
                                             </td>
                                             <td>
                                                 <t t-esc="line.product_id.name"/>
